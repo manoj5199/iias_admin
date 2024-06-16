@@ -14,7 +14,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = ({}: LoaderFunctionArgs) => {
-  return redirect("/dashboard");
+  return redirect("/login");
 };
 export default function Index() {
   return <></>;
