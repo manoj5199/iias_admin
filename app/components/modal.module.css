@@ -1,0 +1,58 @@
+.modal {
+  background-color: #fff;
+  border-radius: 0.8rem;
+  padding: 2.4rem;
+  box-shadow: 0 0 2rem 0.09rem #eee;
+  animation: modal 300ms forwards;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@keyframes modal {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(30%);
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+@keyframes modal-back {
+  0% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  40% {
+    transform: translateX(30%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+.modal__closed {
+  animation: modal-back 300ms forwards;
+}
+.modal > svg {
+  height: 2.2rem;
+  position: absolute;
+  right: 0.8rem;
+  top: 0.8rem;
+  border-radius: 100rem;
+  overflow: hidden;
+  fill: #646cff;
+}
+.modal > svg:hover {
+  background-color: #eee;
+  fill: #464cb3;
+}
+.modal > svg:active {
+  transform: scale(0.93);
+}
+
+/*# sourceMappingURL=modal.module.css.map */
