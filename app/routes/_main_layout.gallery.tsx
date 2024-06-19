@@ -53,10 +53,10 @@ export const action = async ({ request, response }: ActionFunctionArgs) => {
     const name = formData.get("name")?.toString();
     const position = formData.get("position")?.toString();
     const galleryType = formData.get("gallery")?.toString();
-    const upload = formData.get("Upload");
+    const upload: any = formData.get("Upload");
     let location = "gallery/";
 
-    if (!name || !position || !galleryType || !upload) {
+    if (!name || !position || !galleryType || !(upload.size > 0)) {
       return json({ error: true, message: "All fields required." });
     }
 

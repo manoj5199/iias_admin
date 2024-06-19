@@ -5,15 +5,12 @@ import Input from "./input";
 import { useModelContext } from "./Modal";
 import TextArea from "../components/textarea";
 import toast from "react-hot-toast";
-const form_actions = [
-  { title: "create", to: "/create" },
-  { title: "edit", to: "/edit" },
-];
 
 const index = () => {
   const fetcher = useFetcher();
-  const modal = useModelContext();
+  const { closeModal }: any = useModelContext();
   const formRef = useRef<HTMLFormElement>(null);
+  const loading = fetcher.state === "submitting";
   const actionData = useActionData<{
     title: string;
     description: string;
@@ -35,7 +32,7 @@ const index = () => {
     if (responseData) {
       responseData.error
         ? toast.error(responseData.message)
-        : modal!.closeModal() && toast.success(responseData.message);
+        : toast.success(responseData.message) && closeModal();
     }
   }, [fetcher.data]);
 
@@ -46,14 +43,15 @@ const index = () => {
       <Input lable="duration" required={true} />
       <Input lable="category" required={true} />
       <button
-        className="bg-gray-700 text-white rounded-md px-6 py-3 mt-2"
+        className="bg-gray-700 text-white px-6 py-3 mt-2 rounded-lg outline outline-1 outline-slate-300 focus-within:outline-blue-400"
+        disabled={loading}
         type="submit"
         onClick={(e) => {
           e.preventDefault();
           onSubmitHandler();
         }}
       >
-        Submit
+        {loading ? "please wait" : "Submit"}
       </button>
     </fetcher.Form>
   );

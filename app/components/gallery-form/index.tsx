@@ -1,14 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Input from "../input";
-import { Overlay } from "../Overlay";
-import { Form, useActionData, useFetcher } from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
 import toast from "react-hot-toast";
 import { useModelContext } from "../Modal";
-
-const form_actions = [
-  { title: "create", to: "/create" },
-  { title: "edit", to: "/edit" },
-];
 
 const index = () => {
   const { closeModal }: any = useModelContext();
@@ -23,6 +17,8 @@ const index = () => {
       encType: "multipart/form-data",
     });
   };
+
+  const loading = fetcher.state === "submitting";
 
   useEffect(() => {
     const responseData: any = fetcher.data;
@@ -75,8 +71,9 @@ const index = () => {
           submmitHandler();
         }}
         className="bg-gray-700 text-white px-6 py-3 mt-2 rounded-lg outline outline-1 outline-slate-300 focus-within:outline-blue-400"
+        disabled={loading}
       >
-        Submit
+        {loading ? "please wait" : "Submit"}
       </button>
     </Form>
     // </Overlay>

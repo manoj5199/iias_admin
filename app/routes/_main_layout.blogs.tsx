@@ -59,10 +59,10 @@ export const action = async ({ request, response }: ActionFunctionArgs) => {
     const title = formData.get("title");
     const description = formData.get("description");
     const category = formData.get("category");
-    const Upload = formData.get("upload");
+    const Upload: any = formData.get("upload");
     let location = "pdf/";
 
-    if (!title || !description || !category || !Upload) {
+    if (!title || !description || !category || !(Upload.size > 0)) {
       return json({ error: true, message: "All fields required." });
     }
 

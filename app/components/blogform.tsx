@@ -11,7 +11,7 @@ import { useModelContext } from "./Modal";
 import toast from "react-hot-toast";
 
 const index = () => {
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const { closeModal }: any = useModelContext();
   const fileUpload = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const fetcher = useFetcher();
@@ -44,6 +44,7 @@ const index = () => {
   };
 
   const modal = useModelContext();
+  const loading = fetcher.state === "submitting";
 
   const actionData = useActionData<{
     title: string;
@@ -56,7 +57,7 @@ const index = () => {
     if (responseData) {
       responseData.error
         ? toast.error(responseData.message)
-        : modal!.closeModal() && toast.success(responseData.message);
+        : toast.success(responseData.message) && closeModal();
     }
   }, [fetcher.data]);
   return (
@@ -86,13 +87,14 @@ const index = () => {
       />
 
       <button
-        className="bg-gray-700 text-white rounded-md px-6 py-3 mt-2"
+        className="bg-gray-700 text-white px-6 py-3 mt-2 rounded-lg outline outline-1 outline-slate-300 focus-within:outline-blue-400"
+        disabled={loading}
         onClick={(e) => {
           e.preventDefault();
           submitHandler();
         }}
       >
-        Submit
+        {loading ? "please wait" : "Submit"}
       </button>
     </fetcher.Form>
   );
