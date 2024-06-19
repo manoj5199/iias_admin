@@ -25,9 +25,9 @@ const index = ({ closeHandler }: { closeHandler: () => void }) => {
 
   useEffect(() => {
     let click = (e: any) => {
-      if (formRef.current && !formRef.current.contains(e.target)) {
-        closeHandler();
-      }
+      // if (formRef.current && !formRef.current.contains(e.target)) {
+      //   closeHandler();
+      // }
     };
     addEventListener("click", click, true);
 
@@ -35,11 +35,12 @@ const index = ({ closeHandler }: { closeHandler: () => void }) => {
       removeEventListener("click", click);
     };
   }, []);
+
   useEffect(() => {
     let click = (e: any) => {
-      if (formRef.current && !formRef.current.contains(e.target)) {
-        closeHandler();
-      }
+      // if (formRef.current && !formRef.current.contains(e.target)) {
+      // closeHandler();
+      // }
     };
     addEventListener("touchstart", click, true);
 
