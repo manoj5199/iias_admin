@@ -36,10 +36,10 @@ const index = () => {
 
   return (
     <fetcher.Form method="POST" ref={formRef}>
-      <Input lable="title" required />
-      <TextArea lable="description" required />
-      <Input lable="duration" required />
-      <Input lable="category" required />
+      <Input lable="title" required={true} />
+      <TextArea lable="description" required={true} />
+      <Input lable="duration" required={true} />
+      <Input lable="category" required={true} />
       <button
         className="bg-gray-700 text-white rounded-md px-6 py-3 mt-2"
         type="submit"

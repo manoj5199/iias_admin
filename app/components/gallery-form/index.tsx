@@ -59,8 +59,8 @@ const index = ({ overlay = false }: { overlay?: boolean }) => {
       className="flex flex-col bg-white rounded-md p-6"
       ref={formRef}
     >
-      <Input lable="name" required />
-      <Input lable="position" required />
+      <Input lable="name" required={true} />
+      <Input lable="position" required={true} />
       <select
         name="gallery"
         id="gallery"
@@ -79,7 +79,7 @@ const index = ({ overlay = false }: { overlay?: boolean }) => {
         type="file"
         name="file"
         accept="image/png, image/gif, image/jpeg"
-        required
+        required={true}
       />
       {/* <Input lable="Upload" type="file" name="file" accept="application/pdf" required/> */}
       <button

@@ -57,13 +57,13 @@ const index = () => {
   }, [fetcher.data]);
   return (
     <fetcher.Form ref={formRef}>
-      <Input lable="title" required />
-      <Input lable="description" required />
+      <Input lable="title" required={true} />
+      <Input lable="description" required={true} />
       <select
         name="category"
         id="category"
         className="px-6 py-3 w-full mt-4 mb-2 border-2"
-        required
+        required={true}
       >
         <option value={"current affairs"} selected>
           current affairs
@@ -77,7 +77,7 @@ const index = () => {
         name="upload"
         accept="application/pdf"
         ref={fileUpload}
-        required
+        required={true}
         className="w-full"
       />
 
