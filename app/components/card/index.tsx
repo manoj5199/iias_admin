@@ -7,9 +7,10 @@ interface CardProps {
   imageUrl: string;
   title: string;
   id: string;
+  position: string;
 }
 
-const Card = ({ imageUrl, title, id }: CardProps) => {
+const Card = ({ imageUrl, title, id, position }: CardProps) => {
   const fetcher = useFetcher();
   const onDeleteHandler = () => {
     const formData = new FormData();
@@ -38,7 +39,10 @@ const Card = ({ imageUrl, title, id }: CardProps) => {
         alt={title}
       />
       <div className="px-6 py-4 flex items-center justify-between">
-        <div className="font-bold text-xl mb-2">{title}</div>
+        <div className="font-bold text-xl mb-2 flex flex-col">
+          <p>{title}</p>
+          <p>{position}</p>
+        </div>
         <p className="" onClick={() => onDeleteHandler()}>
           <MdDelete size={21} color="red" />
         </p>
