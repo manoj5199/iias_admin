@@ -57,17 +57,17 @@ const index = () => {
   }, [fetcher.data]);
   return (
     <fetcher.Form ref={formRef}>
-      <Input lable="title" />
-      <Input lable="description" />
+      <Input lable="title" required />
+      <Input lable="description" required />
       <select
         name="category"
         id="category"
         className="px-6 py-3 w-full mt-4 mb-2 border-2"
+        required
       >
-        <option value={"none"} selected disabled hidden>
-          select
+        <option value={"current affairs"} selected>
+          current affairs
         </option>
-        <option value={"current affairs"}>current affairs</option>
         <option value={"general studies"}>general studies</option>
         <option value={"optional"}>optional</option>
       </select>

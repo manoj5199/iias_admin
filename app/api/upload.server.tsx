@@ -68,6 +68,7 @@ const uploadFileToAWS = (payload: any) => {
             description: data.description,
             category: data.category,
             document: uploadData.Location,
+            fileName: data.fileName,
           };
           await blogs.insertOne(insertData);
         }
