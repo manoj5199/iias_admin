@@ -136,6 +136,7 @@ const index = () => {
                   imageUrl={value.img_url}
                   title={value.name}
                   id={value._id}
+                  position={value.position}
                 />
               ))}
             </div>
