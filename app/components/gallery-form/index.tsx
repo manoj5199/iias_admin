@@ -10,7 +10,7 @@ const form_actions = [
   { title: "edit", to: "/edit" },
 ];
 
-const index = ({ closeHandler }: { closeHandler?: () => void }) => {
+const index = () => {
   const { closeModal }: any = useModelContext();
   const formRef = useRef<HTMLFormElement>(null);
   const fetcher = useFetcher();
@@ -52,8 +52,9 @@ const index = ({ closeHandler }: { closeHandler?: () => void }) => {
         id="gallery"
         className="px-6 py-3 w-full mt-4 mb-2 capitalize rounded-lg border border-slate-300 focus:border-blue-300 active:border-slate-300"
         required
+        defaultValue={"candidate"}
       >
-        <option value={"candidate"} selected className="capitalize">
+        <option value={"candidate"} className="capitalize">
           candidate
         </option>
         <option value={"faculty"} className="capitalize">

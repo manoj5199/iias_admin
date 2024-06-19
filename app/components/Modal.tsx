@@ -68,7 +68,7 @@ const Window = ({ children }) => {
       <div
         className={`${styles.modal} ${
           closed ? styles.modal__closed : ""
-        } min-w-[500px]`}
+        } min-w-[300px]`}
         ref={windowRef}
       >
         {/* <IconSVG iconName={"close"} onClick={closeModal} /> */}
