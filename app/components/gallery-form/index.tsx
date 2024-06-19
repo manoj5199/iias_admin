@@ -3,15 +3,16 @@ import Input from "../input";
 import { Overlay } from "../Overlay";
 import { Form, useActionData, useFetcher } from "@remix-run/react";
 import toast from "react-hot-toast";
+import { useModelContext } from "../Modal";
 
 const form_actions = [
   { title: "create", to: "/create" },
   { title: "edit", to: "/edit" },
 ];
 
-const index = ({ closeHandler }: { closeHandler: () => void }) => {
+const index = ({ closeHandler }: { closeHandler?: () => void }) => {
+  const { closeModal }: any = useModelContext();
   const formRef = useRef<HTMLFormElement>(null);
-  // const actionData = useActionData()
   const fetcher = useFetcher();
   const submmitHandler = () => {
     const formData = new FormData(formRef.current!);
@@ -24,42 +25,6 @@ const index = ({ closeHandler }: { closeHandler: () => void }) => {
   };
 
   useEffect(() => {
-    let click = (e: any) => {
-      // if (formRef.current && !formRef.current.contains(e.target)) {
-      //   closeHandler();
-      // }
-    };
-    addEventListener("click", click, true);
-
-    return () => {
-      removeEventListener("click", click);
-    };
-  }, []);
-
-  useEffect(() => {
-    let click = (e: any) => {
-      // if (formRef.current && !formRef.current.contains(e.target)) {
-      // closeHandler();
-      // }
-    };
-    addEventListener("touchstart", click, true);
-
-    return () => {
-      removeEventListener("touchstart", click);
-    };
-  }, []);
-
-  useEffect(() => {
-    let drag = (e: any) => {
-      closeHandler();
-    };
-    window.addEventListener("resize", drag, true);
-    return () => {
-      removeEventListener("drag", drag);
-    };
-  }, []);
-
-  useEffect(() => {
     const responseData: any = fetcher.data;
     if (responseData) {
       responseData.error
@@ -68,53 +33,52 @@ const index = ({ closeHandler }: { closeHandler: () => void }) => {
 
       if (!responseData.error) {
         formRef.current?.reset();
-        closeHandler();
+        closeModal();
       }
     }
   }, [fetcher.data]);
 
   return (
-    <Overlay>
-      <Form
-        method="post"
-        encType="multipart/form-data"
-        className="flex flex-col bg-white rounded-md p-6 shadow-lg"
-        ref={formRef}
+    <Form
+      method="post"
+      encType="multipart/form-data"
+      className="flex flex-col bg-white"
+      ref={formRef}
+    >
+      <Input lable="name" required={true} />
+      <Input lable="position" required={true} />
+      <select
+        name="gallery"
+        id="gallery"
+        className="px-6 py-3 w-full mt-4 mb-2 capitalize rounded-lg border border-slate-300 focus:border-blue-300 active:border-slate-300"
+        required
       >
-        <Input lable="name" required={true} />
-        <Input lable="position" required={true} />
-        <select
-          name="gallery"
-          id="gallery"
-          className="px-6 py-3 w-full mt-4 mb-2 capitalize rounded-lg border border-slate-300 focus:border-blue-300 active:border-slate-300"
-          required
-        >
-          <option value={"candidate"} selected className="capitalize">
-            candidate
-          </option>
-          <option value={"faculty"} className="capitalize">
-            faculty
-          </option>
-        </select>
-        <Input
-          lable="Upload"
-          type="file"
-          name="file"
-          accept="image/png, image/gif, image/jpeg"
-          required={true}
-        />
-        {/* <Input lable="Upload" type="file" name="file" accept="application/pdf" required/> */}
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            submmitHandler();
-          }}
-          className="bg-gray-700 text-white px-6 py-3 mt-2 rounded-lg outline outline-1 outline-slate-300 focus-within:outline-blue-400"
-        >
-          Submit
-        </button>
-      </Form>
-    </Overlay>
+        <option value={"candidate"} selected className="capitalize">
+          candidate
+        </option>
+        <option value={"faculty"} className="capitalize">
+          faculty
+        </option>
+      </select>
+      <Input
+        lable="Upload"
+        type="file"
+        name="file"
+        accept="image/png, image/gif, image/jpeg"
+        required={true}
+      />
+      {/* <Input lable="Upload" type="file" name="file" accept="application/pdf" required/> */}
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          submmitHandler();
+        }}
+        className="bg-gray-700 text-white px-6 py-3 mt-2 rounded-lg outline outline-1 outline-slate-300 focus-within:outline-blue-400"
+      >
+        Submit
+      </button>
+    </Form>
+    // </Overlay>
   );
 };
 

@@ -106,18 +106,27 @@ const index = () => {
   return (
     <>
       <div className="flex justify-center items-center text-gray-800">
-        {isFormOpen && <Form closeHandler={() => setIsFormOpen(false)}></Form>}
         <div className="w-10/12 pt-7">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-base sm:text-lg font-medium capitalize">
               gallery
             </h1>
-            <button
-              className="bg-slate-900 rounded-md px-6 py-3 text-white capitalize"
-              onClick={(_) => setIsFormOpen(true)}
-            >
-              add new
-            </button>
+            {/* {isFormOpen && (
+              <Form closeHandler={() => setIsFormOpen(false)}></Form>
+            )} */}
+            <Modal>
+              <Modal.Open>
+                <button
+                  className="bg-slate-900 rounded-md px-6 py-3 text-white capitalize"
+                  // onClick={(_) => setIsFormOpen(true)}
+                >
+                  add new
+                </button>
+              </Modal.Open>
+              <Modal.Window>
+                <Form></Form>
+              </Modal.Window>
+            </Modal>
           </div>
           <div className="h-[80dvh] overflow-y-scroll no-scrollbar">
             <div className="flex flex-wrap gap-8 w-full">

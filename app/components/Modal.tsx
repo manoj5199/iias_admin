@@ -14,14 +14,14 @@ import styles from "./modal.module.css";
 
 const ModalContext = createContext(null);
 
-const Modal = ({ children }:PropsWithChildren) => {
+const Modal = ({ children }: PropsWithChildren) => {
   const [closed, setClosed] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
     setClosed(false);
     setIsOpen(true);
   };
-  const closeModal = (e:any) => {
+  const closeModal = (e: any) => {
     e && e.preventDefault();
     setClosed(true);
     setTimeout(() => {
@@ -66,7 +66,9 @@ const Window = ({ children }) => {
   return (
     <Overlay>
       <div
-        className={`${styles.modal} ${closed ? styles.modal__closed : ""} min-w-[500px]`}
+        className={`${styles.modal} ${
+          closed ? styles.modal__closed : ""
+        } min-w-[500px]`}
         ref={windowRef}
       >
         {/* <IconSVG iconName={"close"} onClick={closeModal} /> */}
