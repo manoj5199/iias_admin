@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Input from "../input";
 import { Overlay } from "../Overlay";
 import { Form, useActionData, useFetcher } from "@remix-run/react";
+import toast from "react-hot-toast";
 
 const form_actions = [
   { title: "create", to: "/create" },
@@ -22,6 +23,14 @@ const index = ({ overlay = false }: { overlay?: boolean }) => {
       encType: "multipart/form-data",
     });
   };
+  useEffect(() => {
+    const responseData: any = fetcher.data;
+    if (responseData) {
+      responseData.error
+        ? toast.error(responseData.message)
+        : toast.success(responseData.message);
+    }
+  }, [fetcher.data]);
 
   useEffect(() => {
     let click = (e: any) => {

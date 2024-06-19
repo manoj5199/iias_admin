@@ -47,9 +47,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const type = formData.get("type");
   let payload = null;
-  if (type === "logout") {
-    return await authenticator.logout(request, { redirectTo: "/login" });
-  }
+
   if (type === "delete-courses") {
     let id = formData.get("id")?.toString();
     await courses.deleteOne({ _id: new ObjectId(id) });
@@ -61,6 +59,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const duration = formData.get("duration");
     const category = formData.get("category");
 
+    if (!title || !description || !category) {
+      return json({ error: true, message: "All fields required." });
+    }
+
     payload = {
       type: "courses",
       data: {
@@ -71,7 +73,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       },
     };
     await courses.insertOne(payload.data);
-    return json(payload!.data);
+    return json({
+      error: false,
+      message: "Insert success",
+      data: payload!.data,
+    });
   } else {
     return null;
   }
@@ -83,7 +89,7 @@ const index = () => {
 
   const [showModal, setShowModal] = useState<boolean>(false);
 
-   const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string) => {
     let formData = new FormData();
     formData.append("id", id);
     formData.append("type", "delete-courses");

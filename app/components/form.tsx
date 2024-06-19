@@ -4,6 +4,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import Input from "./input";
 import { useModelContext } from "./Modal";
 import TextArea from "../components/textarea";
+import toast from "react-hot-toast";
 const form_actions = [
   { title: "create", to: "/create" },
   { title: "edit", to: "/edit" },
@@ -28,9 +29,13 @@ const index = () => {
       encType: "multipart/form-data",
     });
   };
+
   useEffect(() => {
-    if (fetcher.data) {
-      modal!.closeModal();
+    const responseData: any = fetcher.data;
+    if (responseData) {
+      responseData.error
+        ? toast.error(responseData.message)
+        : modal!.closeModal() && toast.success(responseData.message);
     }
   }, [fetcher.data]);
 

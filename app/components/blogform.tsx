@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import Input from "./input";
 import { useModelContext } from "./Modal";
+import toast from "react-hot-toast";
 
 const index = () => {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -51,8 +52,11 @@ const index = () => {
   }>();
 
   useEffect(() => {
-    if (fetcher.data) {
-      modal!.closeModal();
+    const responseData: any = fetcher.data;
+    if (responseData) {
+      responseData.error
+        ? toast.error(responseData.message)
+        : modal!.closeModal() && toast.success(responseData.message);
     }
   }, [fetcher.data]);
   return (

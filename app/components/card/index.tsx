@@ -1,5 +1,6 @@
 import { useFetcher } from "@remix-run/react";
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useEffect } from "react";
+import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 
 interface CardProps {
@@ -19,6 +20,16 @@ const Card = ({ imageUrl, title, id }: CardProps) => {
       encType: "multipart/form-data",
     });
   };
+
+  useEffect(() => {
+    const responseData: any = fetcher.data;
+    if (responseData) {
+      responseData.error
+        ? toast.error(responseData.message)
+        : toast.success(responseData.message);
+    }
+  }, [fetcher.data]);
+
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-slate-50">
       <img

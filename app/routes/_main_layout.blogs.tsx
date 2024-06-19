@@ -62,8 +62,12 @@ export const action = async ({ request, response }: ActionFunctionArgs) => {
     const Upload = formData.get("upload");
     let location = "pdf/";
 
+    if (!title || !description || !category || !Upload) {
+      return json({ error: true, message: "All fields required." });
+    }
+
     if (!Upload || typeof Upload === "string") {
-      return { error: "No file uploaded" };
+      return { error: false, message: "No file uploaded" };
     }
 
     const buffer = await Upload.arrayBuffer();
@@ -97,7 +101,11 @@ export const action = async ({ request, response }: ActionFunctionArgs) => {
     //Process the uploaded file here
     const uploadData = await uploadFileToAWS(payload);
     // await blogs.insertOne(payload.data);
-    return json(payload!.data);
+    return json({
+      error: false,
+      message: "Insert success",
+      data: payload!.data,
+    });
   }
   return json({});
 };

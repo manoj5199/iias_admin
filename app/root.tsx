@@ -8,6 +8,7 @@ import {
 import "./root.css";
 import { authenticator } from "./api/auth.server";
 import { ActionFunctionArgs } from "@remix-run/node";
+import { Toaster } from "react-hot-toast";
 export async function action({ request }: ActionFunctionArgs) {
   const formData = request.formData();
   const type = (await formData).get("type")?.toString();
@@ -47,6 +48,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <Toaster position="top-right" reverseOrder={false} />
         <ScrollRestoration />
         <Scripts />
       </body>
