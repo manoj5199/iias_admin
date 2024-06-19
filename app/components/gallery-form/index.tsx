@@ -44,6 +44,18 @@ const index = ({ overlay = false }: { overlay?: boolean }) => {
       removeEventListener("click", click);
     };
   }, []);
+  useEffect(() => {
+    let click = (e: any) => {
+      if (formRef.current && !formRef.current.contains(e.target)) {
+        setContactModal(false);
+      }
+    };
+    addEventListener("touchstart", click, true);
+
+    return () => {
+      removeEventListener("touchstart", click);
+    };
+  }, []);
 
   useEffect(() => {
     let drag = (e: any) => {
