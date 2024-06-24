@@ -28,8 +28,8 @@ const index = () => {
       var size = parseFloat(
         (fileUpload.current!.files![0].size / 1024).toString()
       );
-      if (size > 2 * 1024) {
-        return alert("File size shound lessthan 2MB.");
+      if (size > 5 * 1024) {
+        return alert("File size should less than 5MB.");
       }
     } else {
       return alert("error message.");
